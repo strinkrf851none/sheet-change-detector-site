@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sheet Change Detector — see what changed in a Google Sheet</title>
+    <meta
+      name="description"
+      content="A Chrome side panel that compares tabs or saved snapshots of a Google Sheet cell by cell, including formula changes."
+    />
+    <style>
+      :root { color-scheme: light dark; }
+      body {
+        margin: 0 auto;
+        max-width: 42rem;
+        padding: 3rem 1.25rem 5rem;
+        font: 16px/1.6 system-ui, -apple-system, Segoe UI, sans-serif;
+      }
+      h1 { font-size: 1.9rem; line-height: 1.2; margin-bottom: 0.25rem; }
+      .tagline { color: #666; margin-top: 0; }
+      ul { padding-left: 1.1rem; }
+      footer { margin-top: 3rem; font-size: 0.9rem; color: #666; }
+      a { color: inherit; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Sheet Change Detector</h1>
+      <p class="tagline">See what changed in a Google Sheet — cell by cell, formulas included.</p>
+
+      <p>
+        A Chrome extension that opens a side panel on any Google Sheets spreadsheet and compares
+        two tabs, two ranges, or a saved snapshot against the live sheet. Changed cells are
+        highlighted, and a toggle switches the comparison between values and formulas.
+      </p>
+
+      <ul>
+        <li>Cell-by-cell diff with added, removed and changed cells</li>
+        <li>Formula changes, not just number changes</li>
+        <li>Snapshots captured on demand or daily, stored on your device</li>
+        <li>Save the result as a report tab to share with a colleague</li>
+      </ul>
+
+      <p>
+        The extension has no backend. Spreadsheet data goes only to Google's APIs, and snapshots
+        never leave your browser.
+      </p>
+    </main>
+
+    <footer>
+      <p>
+        <a href="./privacy.html">Privacy policy</a> ·
+        Contact: <a href="mailto:centralizador.proyectos@gmail.com">centralizador.proyectos@gmail.com</a>
+      </p>
+    </footer>
+  </body>
+</html>
