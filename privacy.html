@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Privacy Policy — Sheet Change Detector</title>
     <meta name="robots" content="index" />
+    <link rel="canonical" href="https://theappswelldone.com/privacy.html" />
     <style>
       :root { color-scheme: light dark; }
       body {
@@ -23,7 +24,7 @@
   <body>
     <main>
       <h1>Privacy Policy — Sheet Change Detector</h1>
-      <p class="updated">Last updated: 29 October 2026</p>
+      <p class="updated">Last updated: 18 November 2026</p>
 
       <p>
         Sheet Change Detector is a Chrome extension that compares ranges and saved snapshots of
@@ -33,39 +34,119 @@
       <h2>What the extension accesses</h2>
       <ul>
         <li>
-          <strong>Spreadsheet data.</strong> With your explicit consent, the extension reads cell
-          values and formulas from the spreadsheets you open, using the Google Sheets API and the
-          <code>https://www.googleapis.com/auth/spreadsheets</code> scope. It writes only when you
-          ask it to save a diff report, and only into a new tab it creates.
+          <strong>Spreadsheet data.</strong> The extension requests one Google OAuth scope:
+          <code>https://www.googleapis.com/auth/spreadsheets</code>. It uses the Google Sheets API
+          to read values and, where needed, formulas from ranges you compare or capture, and to
+          look up tab names and IDs. The scope also allows the spreadsheet writes described below.
         </li>
         <li>
-          <strong>Snapshot data you create.</strong> When you capture a snapshot, that range's
-          values and formulas are stored on your device.
+          <strong>Snapshot data.</strong> When you capture a snapshot, or set a range to be
+          captured on a schedule, that range's values and formulas are stored on your device.
+        </li>
+      </ul>
+
+      <h2>What the extension writes</h2>
+      <ul>
+        <li>
+          <strong>The Diff summary tab.</strong> After a successful comparison in the panel, the
+          extension creates or updates one rolling <code>Diff summary</code> tab in the open
+          spreadsheet if <code>Generate tab with summary</code> is checked. The option is checked
+          by default; unchecked, the comparison writes no report tabs and leaves existing tabs in
+          place. Changing the option does not rerun a completed comparison. Scheduled comparisons
+          also generate reports, independently of this option. To reuse a report tab, the extension
+          looks for a title such as <code>Diff summary</code> or <code>Diff summary (2)</code> and
+          the <code>Diff report</code> marker in its first cell. It leaves matching titles without
+          that marker untouched and uses an available numbered title if needed. If writing the
+          summary fails, the extension may remove the new summary tab it just created.
+        </li>
+        <li>
+          <strong>The Recovery tab.</strong> After successfully writing the summary, the extension
+          creates a separate tab if the comparison found at least one removed cell. The tab lists
+          the removed cells and their previous values. It is named <code>Recovery</code>, or
+          <code>Recovery (2)</code>, <code>Recovery (3)</code>, and so on if the name is taken. The
+          report writer never reuses or updates an existing Recovery tab.
+        </li>
+        <li>
+          <strong>Merges you approve.</strong> When you apply a merge, the extension writes only
+          approved, writable changes into the target range. Before applying the merge, it rereads
+          the target cells and skips any whose current value differs from the value recorded in the
+          comparison. If you choose <code>Undo apply</code>, the extension writes back the values
+          saved before that merge.
+        </li>
+        <li>
+          <strong>Sample tabs.</strong> If you choose <code>Create sample tabs</code>, the
+          extension adds two new tabs with sample data to the open spreadsheet. It does not
+          overwrite existing tabs.
+        </li>
+        <li>
+          <strong>Clearing generated tabs.</strong> When you confirm
+          <code>Clear generated tabs</code>, the extension deletes only the summary tabs it has
+          recorded for the open spreadsheet. It tracks those tabs by ID, so renaming one does not
+          remove it from the list. Recovery tabs, sample tabs, and summary tabs written only by a
+          scheduled comparison are not added to that list.
+        </li>
+        <li>
+          Apart from creating those report and sample tabs, deleting the summary tabs you clear, and
+          the cell writes for merges you approve and for undo,
+          the extension does not edit, rename or delete any other tab.
         </li>
       </ul>
 
       <h2>Where your data goes</h2>
       <p>
-        <strong>Nowhere but Google.</strong> The extension has no backend server. It does not
-        transmit your spreadsheet data, snapshots, or usage to the developer or to any third party.
-        Requests go directly from your browser to Google's APIs.
+        The extension sends spreadsheet data directly from your browser to Google's APIs to read
+        ranges and make the spreadsheet writes described above. There is no developer-operated
+        backend and no automatic server copy of your snapshots or comparison history. The extension
+        does not send spreadsheet data, snapshots, comparison history, usage counts or diagnostics
+        to the developer; you can choose to copy and share diagnostics yourself. Its other requests
+        are the ExtensionPay licence and checkout pages and a public tier-limits file, none of
+        which carries spreadsheet data or Google account information. The tier-limits file is
+        requested when you open the panel.
       </p>
 
       <h2>What is stored, and where</h2>
       <ul>
         <li>
-          Snapshots, settings and sign-in state are stored locally in your browser
-          (<code>chrome.storage.local</code>).
+          Snapshots, comparison history, presets, schedules, usage counts, interface settings,
+          diagnostics, and the values needed to undo the last merge are stored locally in your
+          browser (<code>chrome.storage.local</code>). The extension also stores a local marker for
+          the last successful sign-in or sign-out, including when it happened. That marker contains
+          no Google token, email address or profile detail.
         </li>
         <li>
-          Uninstalling the extension, or clearing its data in Chrome, deletes everything it stored.
+          ExtensionPay caches its licence record in Chrome's synced extension storage, falling back
+          to local extension storage if synced storage is unavailable. The record can include the
+          email address you gave ExtensionPay. The extension does not display that address.
+        </li>
+        <li>
+          The extension keeps up to three snapshots per spreadsheet, removing the oldest when a new
+          capture would exceed that limit. Pro comparison history keeps up to 20 entries per
+          spreadsheet. The local diagnostics log also discards older entries as it fills.
+        </li>
+        <li>
+          Uninstalling removes the extension's local data from that Chrome installation. It does not
+          delete report tabs in Google Sheets or records held by the payment providers.
         </li>
       </ul>
 
+      <h2>Payments</h2>
+      <p>
+        Pro purchases are handled by ExtensionPay, with Stripe processing payments. When you start a
+        trial or choose to buy Pro, the extension opens an ExtensionPay page in your browser.
+        ExtensionPay receives the email address you provide there, and Stripe processes the card
+        details you enter at checkout; their own privacy policies apply. The extension does not
+        receive or store your card details, and it sends neither provider any Google user data,
+        including spreadsheet contents, snapshots or Google account information.
+      </p>
+
       <h2>What is not done</h2>
       <ul>
-        <li>No analytics, tracking pixels, or advertising.</li>
-        <li>No selling or sharing of data.</li>
+        <li>The extension does not send analytics or use tracking pixels or advertising.</li>
+        <li>
+          No access to your Google account identity: the extension requests only the spreadsheets scope,
+          so it does not receive your name, email address or profile from Google.
+        </li>
+        <li>No selling of your data.</li>
         <li>
           No collection of browsing history, keystrokes, or content from any site other than the
           Google Sheets pages you use the extension on.
@@ -75,11 +156,21 @@
       <h2>Your control</h2>
       <ul>
         <li>
+          Sign out in the panel to revoke the extension's Google access. To use it with Google
+          Sheets again, sign in and grant access again.
+        </li>
+        <li>
           Revoke the extension's access at any time at
           <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>.
         </li>
         <li>
-          Delete individual snapshots in the extension, or remove all data by uninstalling it.
+          You can delete individual snapshots, comparison history entries and presets in the panel.
+          Use <code>Clear generated tabs</code> to remove recorded summaries, or delete report tabs
+          directly in Google Sheets.
+        </li>
+        <li>
+          For data-deletion requests, email
+          <a href="mailto:theappsdonewell@gmail.com">theappsdonewell@gmail.com</a>.
         </li>
       </ul>
 
@@ -93,7 +184,7 @@
       </p>
 
       <h2>Contact</h2>
-      <p>Questions about this policy or your data: <a href="mailto:centralizador.proyectos@gmail.com">centralizador.proyectos@gmail.com</a></p>
+      <p>Questions about this policy or your data: <a href="mailto:theappsdonewell@gmail.com">theappsdonewell@gmail.com</a></p>
     </main>
   </body>
 </html>
